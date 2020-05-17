@@ -25,7 +25,6 @@ private:
     SimpleLogger logger;
     SOCKET connection = INVALID_SOCKET;
 
-    SOCKET createConnection(const std::string&, int);
     std::tuple<std::string, std::string> getSocketInfo(SOCKET);
     std::string handleSocketError(int);
 

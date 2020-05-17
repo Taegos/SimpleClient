@@ -57,27 +57,6 @@ std::string SimpleClient::transmit(const std::string& packet) {
 }
 
 
-SOCKET SimpleClient::createConnection(const std::string& host, int port) 
-{
-    SOCKET connection = socket(AF_INET, SOCK_STREAM, 0);
-    if (connection == INVALID_SOCKET) throw SocketException{connection, "Failed to create socket" };
-
-    sockaddr_in addr;
-    addr.sin_family = AF_INET;
-    inet_pton(AF_INET, host.c_str(), &addr.sin_addr);
-
-    addr.sin_port = htons(port);
-    int status = connect(connection, (sockaddr*)&addr, sizeof(addr));
-
-    if (status == SOCKET_ERROR) {
-        std::string reason = handleSocketError(status);
-        logger.outnl(reason);
-    } 
-
-    return connection;
-}
-
-
 std::tuple<std::string, std::string> SimpleClient::getSocketInfo(SOCKET socket) 
 {
     sockaddr_in addr;
